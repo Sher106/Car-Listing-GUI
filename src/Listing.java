@@ -4,8 +4,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
-import javafx.scene.effect.ImageInput;
-import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -29,16 +27,17 @@ public class Listing extends Application {
     private Label Heading, Count, CarText, fast;
     Button Vroom;
     Car Beep;
-    Image carImage, carImg;
+    Image carImage2;
 
     //Starting the method and organizing String that should be initialized
     public void start(Stage primaryStage) throws IOException {
         Dealership = new DealershipInventory();
-        Dealership.list(2012, "Acura ", "Sport Utility", "2HNYB1H64CH500622", "68698", "$21,990", Boolean.parseBoolean("\f"), "2012 Acura.gif");
-        Dealership.list(2017, "Hyundai Tuscan", "Sport Utility", "KM8J3CA46HU533369", "33837", "$19,590", Boolean.parseBoolean("\f"), "2017 Hyundai.gif");
-        Dealership.list(2018, "BMW", "i3", "WBY7Z8C58JVB86743", "28025", "$31,990", Boolean.parseBoolean("\t"), "2018 BMW i3.gif");
-        Dealership.list(2018, "Tesla", "Sedan", "5YJSA1E43JF246163", "9746", "$78,590", Boolean.parseBoolean("\t"), "2018 Tesla.gif");
-        Dealership.list(2020, "Dodge Challenger", "GT Coupe", "2C3CDZJG8LH165235", "13458", "$29,590", Boolean.parseBoolean("\t"), "2020 Dodge Challenger.gif");
+            Dealership.list(2012,"Acura ","Sport Utility","2HNYB1H64CH500622","68698","$21,990",true,"Acura.gif");
+            Dealership.list(2017,"Hyundai Tuscan","Sport Utility","KM8J3CA46HU533369","33837","$19,590",false,"Hyundai3.gif");
+            Dealership.list(2018,"BMW","i3","WBY7Z8C58JVB86743","28025","$31,990",true,"BMW_i32.gif");
+            Dealership.list(2018,"Tesla","Sedan","5YJSA1E43JF246163","9746","$78,590",true,"Tesla.gif");
+            Dealership.list(2020,"Dodge Challenger","GT Coupe","2C3CDZJG8LH165235","13458","$29,590",true,"2020_Dodge_Challenger.gif");
+
 
 
         //Creating Heading of Dealership page
@@ -75,25 +74,28 @@ public class Listing extends Application {
         Vroom.setOnAction(this::processButtonPush);  //Action Handler
 
         //Image Display
-        ImageView carImageView = new ImageView(carImage);
-        carImageView.setViewport(new Rectangle2D(60, 60, 400, 500));
-        carImageView.setTranslateY(40);
-        carImageView.setTranslateX(40);
-        carImageView.setFitWidth(100);
+        carImageView = new ImageView();
+        carImageView.setViewport(new Rectangle2D(60, 60, 400, 400));
+
+       // carImageView.setTranslateY(40);
+        carImageView.setTranslateX(30);
+        carImageView.setFitWidth(300);
         carImageView.setPreserveRatio(true);
+
 
         //Creating HBox
         HBox layout = new HBox(Heading);         //Aligns text horizontally
-        layout.setPadding(new Insets(20, 20, 20, 40));    //set spacing between things displayed
+        layout.setPadding(new Insets(16, 16, 16, 25));    //set spacing between things displayed
         layout.setSpacing(10);
-        layout.setStyle("-fx-background-color: teal");      //HBox color
+        layout.setStyle("-fx-background-color: teal");//HBox color
+        layout.setAlignment(Pos.CENTER);
 
         //Creating VBox
-        VBox layout2 = new VBox( layout, CarText, Count, options, Vroom, fast, carImageView);   //Aligns text and objects horizontally
+        VBox layout2 = new VBox(layout,Count, options, Vroom, fast, CarText, carImageView);   //Aligns text and objects horizontally
         layout2.setSpacing(10);
         layout2.setAlignment(Pos.TOP_CENTER);
         layout2.setStyle("-fx-background-color: teal");      //VBox color
-        layout2.setPrefSize(450, 700);
+        layout2.setPrefSize(700, 700);
 
 
         scene = new Scene(layout2, 450, 700);     //Where each part is placed
@@ -107,10 +109,9 @@ public class Listing extends Application {
     }
 
     private void processButtonPush(ActionEvent event) {             //Action handler for Button and its instructions
-        fast.setText(Beep.toString());
-
-        carImage = new Image(Beep.carImage);
-
+        CarText.setText(Beep.toString());
+        carImage2 = new Image(Beep.carImage);
+        carImageView.setImage(carImage2);
     }
 }
 

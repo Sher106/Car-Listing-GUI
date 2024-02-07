@@ -1,7 +1,5 @@
-import javafx.scene.image.Image;
-
 import java.text.NumberFormat;
-import java.util.ArrayList;
+
 
 public class Car {
     private String Make, Model, VIN;
@@ -35,7 +33,7 @@ public class Car {
         description += "Cost: " + Cost + "\n";
 
         if (CleanRecord) {
-            description += "\tClean Record: No Accidents Reported";
+            description += "\t" + "Clean Record: No Accidents Reported";
         } else {
             description += "\fAccident Record: One Accident Reported";
 
